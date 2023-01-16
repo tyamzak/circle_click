@@ -91,7 +91,7 @@ class App:
         if self.is_gamestop:
             return
 
-        #タイマー表示用の文字列
+        #タイマー表示用の文字列の更新
         self.timestr = str(int(pyxel.frame_count / FPS)) + ':' + str(pyxel.frame_count % FPS)
 
         #Qボタンでゲーム終了する
