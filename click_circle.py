@@ -89,8 +89,10 @@ class App:
     def update(self):
         #ゲームが終了していたら以下の処理は行わない
         if self.is_gamestop:
-
             return
+
+        #タイマー表示用の文字列
+        self.timestr = str(int(pyxel.frame_count / FPS)) + ':' + str(pyxel.frame_count % FPS)
 
         #Qボタンでゲーム終了する
         if pyxel.btnp(pyxel.KEY_Q):
@@ -114,7 +116,7 @@ class App:
                     
                     pyxel.play(0,0,False)
 
-                    #三角をくりっくしたら、ゲームオーバーにする
+                    #三角をクリックしたら、ゲームオーバーにする
                     if shape.__class__.__name__ == 'Triangle':
                         self.is_gameover = True
 
@@ -166,6 +168,10 @@ class App:
             else:
                 pass
 
+        # タイマーを表示させる
+
+        pyxel.text(10,10,self.timestr,7)
+
         # ゲームが開始されるまで、案内文字列を点滅させる
         if not self.is_firstclicked and pyxel.frame_count % 20 < 10:
             pyxel.text(96, 50, "Click  Circle", pyxel.frame_count % 15 + 1)
@@ -185,7 +191,7 @@ class App:
             self.is_gamestop = True
         elif self.is_completed:
             s = self.res_str
-            pyxel.text(110, 100, s,7)
+            pyxel.text(100, 100, s,7)
             #1回だけサウンド再生
             if self.is_gamestop is False:
                 pyxel.play(0,self.endsound,False)
